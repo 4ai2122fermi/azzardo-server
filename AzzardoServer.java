@@ -2,7 +2,7 @@ import java.net.*;
 import java.io.*;
 
 public class AzzardoServer extends Thread {
-	public final static int SERVER_PORT = 6969;
+	public final static int SERVER_PORT = 6942;
 	public final static String KEY = "chiavesegreta";
 	private ServerSocket server;
     

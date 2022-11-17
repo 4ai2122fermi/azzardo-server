@@ -44,8 +44,12 @@ public class ClientThread extends Thread {
 				}
 				return "NOREADY";
 			}
+		} else if (component.length == 2) {
 			if (component[0].equalsIgnoreCase("STOP")) {
 				if(Partita.getInstance().isStarted() == true) {
+					if (!component[1].equals(this.key)) {
+						return "ERROR";
+					}
 					Partita.getInstance().stop();
 					return "OK";
 				}

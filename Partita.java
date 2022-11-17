@@ -19,7 +19,7 @@ class Partita {
 	public void start(int balance) {
 		this.balance = balance;
 		Random rand = new Random();
-		randomNumber = rand.nextInt(0, 128);
+		randomNumber = rand.nextInt(128);
 		started = true;
 	}
 
