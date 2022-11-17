@@ -35,7 +35,7 @@ public class ClientThread extends Thread {
 			if (component[0].equalsIgnoreCase("PUNTATA")) {
 				int stake, number;
 				try {
-					stake = Integer.parseInt(component[2]);
+					stake = Integer.parseInt(component[1]);
 					number = Integer.parseInt(component[2]);
 				} catch (NumberFormatException e) { return "ERROR"; }
 				String result = Partita.getInstance().bet(stake, number);
