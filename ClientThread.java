@@ -33,13 +33,23 @@ public class ClientThread extends Thread {
 				return "OK";
 			}
 			if (component[0].equalsIgnoreCase("PUNTATA")) {
-				int stake, number;
-				try {
-					stake = Integer.parseInt(component[1]);
-					number = Integer.parseInt(component[2]);
-				} catch (NumberFormatException e) { return "ERROR"; }
-				String result = Partita.getInstance().bet(stake, number);
-				return result;
+				if(Partita.getInstance().isStarted() == true) {
+					int stake, number;
+					try {
+						stake = Integer.parseInt(component[1]);
+						number = Integer.parseInt(component[2]);
+					} catch (NumberFormatException e) { return "ERROR"; }
+					String result = Partita.getInstance().bet(stake, number);
+					return result;
+				}
+				return "NOREADY";
+			}
+			if (component[0].equalsIgnoreCase("STOP")) {
+				if(Partita.getInstance().isStarted() == true) {
+					Partita.getInstance().stop();
+					return "OK";
+				}
+				return "NOREADY";
 			}
 		} else {
 			return "ERROR";

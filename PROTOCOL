@@ -6,6 +6,7 @@ Richieste:
 Risposte:
   WIN,%d				Vincita (%d => prize)
   NOMONEY				Montepremi esaurito
+  NOREADY       Partita inesistente
   LOST					La puntata è stata persa
   OK					Comando ricevuto con successo
   ERROR					Errore generico
