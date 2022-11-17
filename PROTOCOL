@@ -1,7 +1,7 @@
 Richieste:
   START,%s,%d			Inizia una partita (%s => auth token, %d => total)
   PUNTATA,%d,%d			Scommetti su un numero (%d => stake, %d => number)
-  STOP                  Ferma la partita
+  STOP                  	Ferma la partita
 
 Risposte:
   WIN,%d				Vincita (%d => prize)
