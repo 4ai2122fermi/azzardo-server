@@ -1,0 +1,12 @@
+Richieste:
+  START,%s,%d			Inizia una partita (%s => auth token, %d => total)
+  PUNTATA,%d,%d			Scommetti su un numero (%d => stake, %d => number)
+
+Risposte:
+  WIN,%d				Vincita (%d => prize)
+  NOMONEY				Montepremi esaurito
+  LOST					La puntata è stata persa
+  OK					Comando ricevuto con successo
+  ERROR					Errore generico
+
+In caso di messaggio formattato male viene ritornato un errore generico.
