@@ -14,7 +14,7 @@ public class ClientThread extends Thread {
 	}
 	
 	// metodo che a partire dalla stringa di comando ricevuta dal client restituisce la stringa di risposta
-	private String calculator(String command) {
+	private String response(String command) {
 		String component[];
 
 		component = command.split(","); // separazione della stringa nelle tre component
@@ -59,7 +59,7 @@ public class ClientThread extends Thread {
 				if (n > 0) {
 					for (i=0; i<n; i++) { // ricerca dei caratteri di terminazione 
 						if (buffer[i] == '\r' || buffer[i] == '\n') { // commando ricevuto -> esecuzione
-							result = calculator(command.toString());
+							result = response(command.toString());
 							output.write(result+"\r\n"); output.flush(); // invio al client del risultato
 							command = new StringBuffer(); // inizializzazione del comando
 							break;
