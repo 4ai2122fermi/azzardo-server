@@ -13,48 +13,44 @@ public class ClientThread extends Thread {
 		output = new OutputStreamWriter(this.connection.getOutputStream());
 	}
 	
-	// metodo che a partire dalla stringa di comando ricevuta dal client restituisce la stringa di risposta
 	private String response(String command) {
-		String component[];
+		String component[] = command.split(",");
 
-		component = command.split(","); // separazione della stringa nelle tre component
-		if (component.length == 1) {
-			if (component[0].equalsIgnoreCase("MONTEPREMI")) {
-				if (Partita.getInstance().isStarted()) {
-					return Partita.getBalance().toString();
-				} else {
-					return "NOREADY";
+		switch (component.length) {
+			case 1:
+				if (component[0].equalsIgnoreCase("MONTEPREMI")) {
+					if (!Partita.getInstance().isStarted())
+						return "NOREADY";
+					return Integer.toString(Partita.getInstance().getBalance());
 				}
-			}
-		}
-		if (component.length == 2) {
-			if (component[0].equalsIgnoreCase("STOP")) {
-				if(Partita.getInstance().isStarted() == true) {
-					if (!component[1].equals(this.key)) {
+				break;
+			case 2:
+				if (component[0].equalsIgnoreCase("STOP")) {
+					if (!Partita.getInstance().isStarted())
+						return "NOREADY";
+					if (!component[1].equals(this.key))
 						return "ERROR";
-					}
 					Partita.getInstance().stop();
 					return "OK";
 				}
-				return "NOREADY";
-			}
-		}
-		if (component.length == 3) {
-			// determinazione dell’operazione da eseguire
-			if (component[0].equalsIgnoreCase("START")) {
-				System.out.println(this.key + ":" + component[1]);
-				if (!component[1].equals(this.key)) {
-					return "ERROR";
+				break;
+			case 3:
+				if (component[0].equalsIgnoreCase("START")) {
+					if (!component[1].equals(this.key))
+						return "ERROR";
+
+					int balance;
+					try {
+						balance = Integer.parseInt(component[2]);
+					} catch (NumberFormatException e) { return "ERROR"; }
+
+					Partita.getInstance().start(balance);
+					return "OK";
 				}
-				int balance;
-				try {
-					balance = Integer.parseInt(component[2]);
-				} catch (NumberFormatException e) { return "ERROR"; }
-				Partita.getInstance().start(balance);
-				return "OK";
-			}
-			if (component[0].equalsIgnoreCase("PUNTATA")) {
-				if(Partita.getInstance().isStarted() == true) {
+				if (component[0].equalsIgnoreCase("PUNTATA")) {
+					if(Partita.getInstance().isStarted())
+						return "NOREADY";
+
 					int stake, number;
 					try {
 						stake = Integer.parseInt(component[1]);
@@ -63,11 +59,10 @@ public class ClientThread extends Thread {
 					String result = Partita.getInstance().bet(stake, number);
 					return result;
 				}
-				return "NOREADY";
-			}
+				break;
 		}
-
-		return "ERROR";
+		
+		return "ERROR"; // no recognizable command length
 	}
 	
 	public void run()  {
