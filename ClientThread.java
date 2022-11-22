@@ -18,6 +18,27 @@ public class ClientThread extends Thread {
 		String component[];
 
 		component = command.split(","); // separazione della stringa nelle tre component
+		if (component.length == 1) {
+			if (component[0].equalsIgnoreCase("MONTEPREMI")) {
+				if (Partita.getInstance().isStarted()) {
+					return Partita.getBalance().toString();
+				} else {
+					return "NOREADY";
+				}
+			}
+		}
+		if (component.length == 2) {
+			if (component[0].equalsIgnoreCase("STOP")) {
+				if(Partita.getInstance().isStarted() == true) {
+					if (!component[1].equals(this.key)) {
+						return "ERROR";
+					}
+					Partita.getInstance().stop();
+					return "OK";
+				}
+				return "NOREADY";
+			}
+		}
 		if (component.length == 3) {
 			// determinazione dell’operazione da eseguire
 			if (component[0].equalsIgnoreCase("START")) {
@@ -44,19 +65,6 @@ public class ClientThread extends Thread {
 				}
 				return "NOREADY";
 			}
-		} else if (component.length == 2) {
-			if (component[0].equalsIgnoreCase("STOP")) {
-				if(Partita.getInstance().isStarted() == true) {
-					if (!component[1].equals(this.key)) {
-						return "ERROR";
-					}
-					Partita.getInstance().stop();
-					return "OK";
-				}
-				return "NOREADY";
-			}
-		} else {
-			return "ERROR";
 		}
 
 		return "ERROR";

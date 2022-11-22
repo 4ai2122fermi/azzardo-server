@@ -40,6 +40,10 @@ class Partita {
 		return started;
 	}
 
+	public int getBalance() {
+		return balance;
+	}
+
 	public void stop() {
 		started = false;
 	}
