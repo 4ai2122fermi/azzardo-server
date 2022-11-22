@@ -9,6 +9,7 @@ Risposte:
   NOMONEY				Montepremi esaurito
   NOREADY				Partita inesistente
   LOST					La puntata è stata persa
+  NOAUTH				Autenticazione fallita (chiave errata)
   OK					Comando ricevuto con successo
   ERROR					Errore generico
 

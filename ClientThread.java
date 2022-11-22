@@ -29,7 +29,7 @@ public class ClientThread extends Thread {
 					if (!Partita.getInstance().isStarted())
 						return "NOREADY";
 					if (!component[1].equals(this.key))
-						return "ERROR";
+						return "NOAUTH";
 					Partita.getInstance().stop();
 					return "OK";
 				}
@@ -37,7 +37,7 @@ public class ClientThread extends Thread {
 			case 3:
 				if (component[0].equalsIgnoreCase("START")) {
 					if (!component[1].equals(this.key))
-						return "ERROR";
+						return "NOAUTH";
 
 					int balance;
 					try {
