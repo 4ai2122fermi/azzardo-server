@@ -16,14 +16,13 @@ public class AzzardoServer extends Thread {
 
 		while (!Thread.interrupted()) {
 			try {
-				connection = server.accept(); // attesa richiesta connessione da parte del client (attesa massima 1s)
+				connection = server.accept();
 				Thread client = new ClientThread(connection, KEY);
 				client.start();
 			}
 			catch (SocketTimeoutException exception) { }
 			catch (IOException exception) { }
 		}
-		// chiusura socket di ascolto del server 
 		try {
 			server.close();
 		}
@@ -43,9 +42,11 @@ public class AzzardoServer extends Thread {
 			server.join();
 		}
 		catch (IOException exception) {
-			System.err.println("Errore!");
+			System.err.println("[SERVER] Exception:");
+			exception.printStackTrace();
 		} catch (InterruptedException exception) {
-			System.err.println("Fine!");
+			System.err.println("[SERVER] Interrputed!");
+			exception.printStackTrace();
 		}
 	}
 }

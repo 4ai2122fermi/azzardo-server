@@ -72,13 +72,13 @@ public class ClientThread extends Thread {
 		StringBuffer command = new StringBuffer();
 
 		try {
-			while ((n = input.read(buffer)) != -1) { // ciclo di ricezione dei dati dal client
+			while ((n = input.read(buffer)) != -1) {
 				if (n > 0) {
-					for (i=0; i<n; i++) { // ricerca dei caratteri di terminazione 
-						if (buffer[i] == '\r' || buffer[i] == '\n') { // commando ricevuto -> esecuzione
+					for (i=0; i<n; i++) {
+						if (buffer[i] == '\r' || buffer[i] == '\n') {
 							result = response(command.toString());
-							output.write(result+"\r\n"); output.flush(); // invio al client del risultato
-							command = new StringBuffer(); // inizializzazione del comando
+							output.write(result+"\r\n"); output.flush();
+							command = new StringBuffer();
 							break;
 						} else { character = new String(buffer, i, 1, "ISO-8859-1"); command.append(character); }
 					}
@@ -88,7 +88,7 @@ public class ClientThread extends Thread {
 		catch (IOException exception) { }
  
 		try {
-			System.out.println("Connessione chiusa!");
+			System.out.println("[SERVER] Connection closed.");
 			input.close(); output.close();
 			connection.shutdownInput(); connection.shutdownOutput(); connection.close(); 
 		}
